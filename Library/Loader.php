@@ -14,7 +14,10 @@ if ( ! defined('ENT_IGNORE')) {
     define('ENT_IGNORE', 0);
 }
 
-# Autoloader
-spl_autoload_register(function ($class) {
-    require_once str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
-});
+# Compatibilty with php that doesn't support anonymous function
+function custom_loader($class) {
+	require_once str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+}
+
+spl_autoload_register('custom_loader');
+
